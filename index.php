@@ -55,7 +55,6 @@ if (count($title) == 2) {
 <head>
 	<title><?php echo htmlspecialchars($title); ?></title>
 	<link rel="stylesheet" type="text/css" href="default.css" />
-	<script type="text/javascript" src="js/common.js"></script>
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 	<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="76x76" href="img/apple-touch-icon-76.png">
