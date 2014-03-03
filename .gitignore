@@ -1,0 +1,7 @@
+# composer will put files into here
+vendor
+
+composer.lock
+
+# set this up based on config.php.sample
+config.php

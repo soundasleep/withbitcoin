@@ -1,0 +1,52 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,400italic,700);
+
+html,body { 
+	color: #111;
+	background: #eee;
+	font-family: 'Roboto', Arial, sans-serif;
+}
+html { margin: 0; padding: 25px; }
+body { margin: 0 auto; padding: 0; max-width: 1024px; min-width: 600px; }
+.content { line-height: 150%; }
+
+a { color: #c33; }
+
+/* navigation */
+#navigation, #content { box-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+#navigation { background: white; min-height: 130px; border-bottom: 5px solid #b66; }
+
+#navigation h3 { display: inline-block; float: left; line-height: 100%; margin: 20px 10px 30px 30px; padding: 0; }
+#navigation h4 { display: inline-block; float: right; margin: 30px 30px 0 30px; font-size: 80%; }
+#navigation h2 { margin: 0 20px 0 150px; padding-top: 35px; }
+#navigation h2 a { text-decoration: none; color: #111; }
+
+#navigation ul { list-style: none; margin: 10px 0px 10px 20px; padding: 0; display: inline-block; font-size: 110%; }
+#navigation ul li { margin: 0 20px 0 0; padding: 0; display: inline-block; }
+#navigation a { text-decoration: none; }
+#navigation a:hover { text-decoration: underline; }
+
+#navigation .navigation_image {
+	display: inline-block;
+	width: 90px;
+	height: 89px;
+	background: url('img/bitcoin.png') top left no-repeat;
+}
+
+/* content */
+#content { padding: 10px 20px; background: #f6f6f6; }
+
+/* footer */
+#footer { 
+	background: white; 
+	width: 50%; 
+	margin: 30px auto; 
+	padding: 10px; 
+	box-shadow: 2px 2px 4px rgba(0,0,0,0.15); 
+	border-radius: 10px;
+	text-align: center;
+	font-size: 80%;
+	color: #666;
+}
+#footer a { color: #a55; }
+#footer ul { list-style: none; margin: 0; padding: 0; display: inline-block; }
+#footer ul li { margin: 0 15px 0 0; padding: 0; display: inline-block; }

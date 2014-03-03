@@ -1,0 +1,10 @@
+<?php
+
+function get_site_config($key) {
+	switch ($key) {
+		case "relative_path":	return false;
+	
+		default:
+			throw new Exception("Unknown site configuration " . $key);
+	}
+}
