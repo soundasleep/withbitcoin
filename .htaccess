@@ -9,5 +9,5 @@ ErrorDocument 404 /index.php?q=404
 # ErrorDocument 404 /withbitcoin/index.php?q=404
 
 # This rewrites /foo to /index.php?q=foo
-RewriteRule ^([0-9a-z_]+)$         index.php?q=$1     [L,QSA]
+RewriteRule ^([0-9A-Za-z_\-]+)$         index.php?q=$1     [L,QSA]
 
