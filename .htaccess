@@ -2,11 +2,11 @@ RewriteEngine on
 
 # client-side URI mapping
 # if you are running in a top-level domain, you should use this:
-# RewriteBase /
-# ErrorDocument 404 /index.php?q=404
+RewriteBase /
+ErrorDocument 404 /index.php?q=404
 # if you are running in a subfolder, you should instead use this:
-RewriteBase /withbitcoin
-ErrorDocument 404 /withbitcoin/index.php?q=404
+# RewriteBase /withbitcoin
+# ErrorDocument 404 /withbitcoin/index.php?q=404
 
 # This rewrites /foo to /index.php?q=foo
 RewriteRule ^([0-9a-z_]+)$         index.php?q=$1     [L,QSA]
