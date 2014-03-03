@@ -39,7 +39,11 @@ if (count($title) == 2) {
 	// strip out any # heading characters
 	$title = trim(str_replace("#", "", $title));
 	if ($request != "index") {
-		$title .= " - withbitcoin.co.nz";
+		if ($request != "contact") {
+			$title .= " in New Zealand - withbitcoin.co.nz";
+		} else {
+			$title .= " - withbitcoin.co.nz";
+		}
 	}
 } else {
 	$title = "withbitcoin.co.nz";
@@ -59,7 +63,7 @@ if (count($title) == 2) {
 	<link rel="apple-touch-icon" sizes="152x152" href="img/apple-touch-icon-152.png">
 	<meta name="viewport" content="width=660">
 </head>
-<body id="page_@ID@">
+<body id="page_<?php echo htmlspecialchars($request); ?>">
 
 <div id="navigation" class="content">
 <?php echo str_replace("@IMAGE@", "<span class=\"navigation_image\"></span>", output_content("navigation")); ?>
@@ -75,8 +79,8 @@ if (count($title) == 2) {
 
 <script type="text/javascript">
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-12345678-1']);
-  _gaq.push(['_setDomainName', 'withbitcoin.co.nz']);
+  _gaq.push(['_setAccount', <?php echo json_encode(get_site_config('google_analytics_account')); ?>]);
+  _gaq.push(['_setDomainName', <?php echo json_encode(get_site_config('google_analytics_domain')); ?>]);
   _gaq.push(['_setAllowLinker', true]);
   _gaq.push(['_trackPageview']);
 </script>
