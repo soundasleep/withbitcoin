@@ -2,7 +2,7 @@
 
 Here will be resources on learning what Bitcoin is and how it works. For example:
 
-* Bitcoin basics
+* [Bitcoin basics](/learn/basics)
 * How Bitcoin stays secure
 * How Bitcoins are created
 * Local meetups in your city

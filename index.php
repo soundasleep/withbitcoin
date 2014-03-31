@@ -7,7 +7,8 @@ $parsedown = new Parsedown();
 
 // clean up the request URI
 $request = isset($_GET['q']) ? $_GET['q'] : "";
-$request = preg_replace("#[^a-zA-Z0-9\_\-]+#im", "", $request);
+$request = preg_replace("#[^a-zA-Z0-9\_\-/]+#im", "", $request);
+$original_request = $request;
 if (!$request) $request = "index";
 
 if (!file_exists(__DIR__ . "/" . $request . ".md")) {
@@ -38,6 +39,8 @@ if (count($title) == 2) {
 	$title = $title[0];
 	// strip out any # heading characters
 	$title = trim(str_replace("#", "", $title));
+  // strip out any links
+  $title = trim(preg_replace("/\[([^\)]+)\)/i", "", $title));
 	if ($request != "index") {
 		if ($request != "contact") {
 			$title .= " in New Zealand - withbitcoin.co.nz";
@@ -49,17 +52,49 @@ if (count($title) == 2) {
 	$title = "withbitcoin.co.nz";
 }
 
+
+/**
+ * Can be cached.
+ */
+$global_calculate_relative_path = null;
+function calculate_relative_path() {
+  global $global_calculate_relative_path;
+  if ($global_calculate_relative_path === null) {
+    // construct a relative path for this request based on the request URI, but only if it is set
+    if (isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] && !defined('FORCE_NO_RELATIVE')) {
+      $uri = $_SERVER['REQUEST_URI'];
+      // strip out the hostname from the absolute_url
+      $intended = substr(get_site_config('absolute_url'), strpos(get_site_config('absolute_url'), '://') + 4);
+      $intended = substr($intended, strpos($intended, '/'));
+      // if we're in this path, remove it
+      // now generate ../s as necessary
+      if (strtolower(substr($uri, 0, strlen($intended))) == strtolower($intended)) {
+        $uri = substr($uri, strlen($intended));
+      }
+      // but strip out any parameters, which might have /s in them, which will completely mess this up
+      // (see issue #13)
+      if (strpos($uri, "?") !== false) {
+        $uri = substr($uri, 0, strpos($uri, "?"));
+      }
+      $global_calculate_relative_path = str_repeat('../', substr_count($uri, '/'));
+    } else {
+      $global_calculate_relative_path = "";
+    }
+  }
+  return $global_calculate_relative_path;
+}
+
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
 	<title><?php echo htmlspecialchars($title); ?></title>
-	<link rel="stylesheet" type="text/css" href="default.css" />
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="76x76" href="img/apple-touch-icon-76.png">
-	<link rel="apple-touch-icon" sizes="120x120" href="img/apple-touch-icon-120.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="img/apple-touch-icon-152.png">
+	<link rel="stylesheet" type="text/css" href="<?php echo calculate_relative_path(); ?>default.css" />
+	<link rel="shortcut icon" href="<?php echo calculate_relative_path(); ?>favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="<?php echo calculate_relative_path(); ?>img/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="<?php echo calculate_relative_path(); ?>img/apple-touch-icon-76.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="<?php echo calculate_relative_path(); ?>img/apple-touch-icon-120.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="<?php echo calculate_relative_path(); ?>img/apple-touch-icon-152.png">
 	<meta name="viewport" content="width=660">
 </head>
 <body id="page_<?php echo htmlspecialchars($request); ?>">
