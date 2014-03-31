@@ -5,6 +5,9 @@ function get_site_config($key) {
 		case "relative_path":
 			// e.g. "withbitcoin" or false
 			return false;
+
+		case "absolute_url":
+			return "http://localhost/";
 		
 		case "google_analytics_account":
 			return "UA-12345678-1";
