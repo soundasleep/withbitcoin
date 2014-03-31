@@ -8,6 +8,10 @@ $parsedown = new Parsedown();
 // clean up the request URI
 $request = isset($_GET['q']) ? $_GET['q'] : "";
 $request = preg_replace("#[^a-zA-Z0-9\_\-/]+#im", "", $request);
+// fix issue with mod_rewrite messing up with subdirectories
+if (strpos($request, "/") !== false) {
+  $request = "_" . $request;
+}
 $original_request = $request;
 if (!$request) $request = "index";
 
