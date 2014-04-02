@@ -1,21 +1,17 @@
 <?php
 
-require 'vendor/autoload.php';
-require 'config.php';
+require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/config.php';
 
 $parsedown = new Parsedown();
 
 // clean up the request URI
 $request = isset($_GET['q']) ? $_GET['q'] : "";
 $request = preg_replace("#[^a-zA-Z0-9\_\-/]+#im", "", $request);
-// fix issue with mod_rewrite messing up with subdirectories
-if (strpos($request, "/") !== false) {
-  $request = "_" . $request;
-}
 $original_request = $request;
 if (!$request) $request = "index";
 
-if (!file_exists(__DIR__ . "/" . $request . ".md")) {
+if (!file_exists(__DIR__ . "/../" . $request . ".md")) {
 	header("HTTP/1.0 404 Not Found");
 	$request = "404";
 }
@@ -32,11 +28,11 @@ function fix_relative_links($markdown) {
 
 function output_content($request) {
 	global $parsedown;
-	$content = fix_relative_links(file_get_contents(__DIR__ . "/" . $request . ".md"));
+	$content = fix_relative_links(file_get_contents(__DIR__ . "/../" . $request . ".md"));
 	return $parsedown->parse($content);
 }
 
-$content = fix_relative_links(file_get_contents(__DIR__ . "/" . $request . ".md"));
+$content = fix_relative_links(file_get_contents(__DIR__ . "/../" . $request . ".md"));
 // strip out the title from the first line
 $title = explode("\n", $content, 2);
 if (count($title) == 2) {

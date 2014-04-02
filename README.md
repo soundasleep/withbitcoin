@@ -13,3 +13,15 @@ cd withbitcoin
 cp config.php.sample config.php && vim config.php
 composer install
 ```
+
+And then point your Apache/etc to the `web` directory:
+
+```
+Alias "/withbitcoin" "/var/www/withbitcoin/web"
+<Directory "/var/www/withbitcoin/web">
+   Options Indexes FollowSymLinks
+   DirectoryIndex index.html index.php default.html default.php
+   AllowOverride All
+   Allow from All   
+</Directory>
+```
